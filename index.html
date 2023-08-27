@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEACEANDLOVE Cart</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .item-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  .item-details {
+    flex: 1;
+  }
+  .item-name {
+    font-weight: bold;
+  }
+  .item-price {
+    color: #888;
+  }
+  .item-actions {
+    display: flex;
+    align-items: center;
+  }
+  .item-quantity {
+    margin: 0 10px;
+  }
+  .heart-button {
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <h1>SHOPPING CART PEACEANDLOVE!</h1>
+  <div class="cart">
+    <div class="cart-item" data-item-id="1">
+      <img class="item-image" src="FB_IMG_1620839469391.jpg" alt="Item 1">
+      <div class="item-details">
+        <div class="item-name">Item 1</div>
+        <div class="item-price">1000.00FCFA</div>
+      </div>
+      <div class="item-actions">
+        <button class="minus-button">-</button>
+        <span class="item-quantity">1</span>
+        <button class="plus-button">+</button>
+        <span class="heart-button">❤️</span>
+        <button class="delete-button">SUPPRIMER</button>
+      </div>
+    </div>
+    <div class="cart-item" data-item-id="2">
+      <!-- Similar structure for other items -->
+    </div>
+  </div>
+  <div class="total-price">Total: 0.00FCFA</div>
+
+<script>
+  const cartItems = document.querySelectorAll('.cart-item');
+
+  cartItems.forEach(item => {
+    const minusButton = item.querySelector('.minus-button');
+    const plusButton = item.querySelector('.plus-button');
+    const quantitySpan = item.querySelector('.item-quantity');
+    const deleteButton = item.querySelector('.delete-button');
+    const heartButton = item.querySelector('.heart-button');
+
+    let quantity = 1;
+    const price = 10; // Set the item price here
+    let isLiked = false;
+
+    minusButton.addEventListener('click', () => {
+      if (quantity > 1) {
+        quantity--;
+        updateTotal();
+      }
+      quantitySpan.textContent = quantity;
+    });
+
+    plusButton.addEventListener('click', () => {
+      quantity++;
+      updateTotal();
+      quantitySpan.textContent = quantity;
+    });
+
+    deleteButton.addEventListener('click', () => {
+      item.remove();
+      updateTotal();
+    });
+
+    heartButton.addEventListener('click', () => {
+      isLiked = !isLiked;
+      heartButton.style.color = isLiked ? 'red' : 'black';
+    });
+
+    function updateTotal() {
+      const totalPriceElement = document.querySelector('.total-price');
+      const totalPrice = price * quantity;
+      totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
+    }
+  });
+</script>
+</body>
+</html>
